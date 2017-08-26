@@ -1,3 +1,6 @@
+// @flow
+import client from 'cheerio-httpcli';
+
 const MASUDA_HOST = 'https://anond.hatelabo.jp';
 
 export class Client {
@@ -14,5 +17,18 @@ export class Client {
 
   getEntryList(page) {
     const url = this.createEntryListUrl(page);
+    return client.fetch(url)
+      .then(raw => raw.$('.body .section'))
+      .then(rawEntries => {
+        const entries = [];
+        rawEntries.forEach(rawEntry => {
+          const title = '';
+          const body = '';
+          entries.push({
+            title, body
+          });
+        });
+        return entries;
+      });
   }
 }
