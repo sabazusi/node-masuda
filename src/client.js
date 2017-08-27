@@ -15,19 +15,27 @@ export class Client {
     return `${MASUDA_HOST}/${id}`
   }
 
+  extractTitle(titleBlock) {
+  }
+
+  extractBody(bodyBlockList) {
+  }
+
   getEntryList(page) {
     const url = this.createEntryListUrl(page);
     return client.fetch(url)
-      .then(raw => raw.$('.body .section'))
+      .then(raw => raw.$('.body').children())
       .then(rawEntries => {
         const entries = [];
-        rawEntries.forEach(rawEntry => {
-          const title = '';
-          const body = '';
+        for (var i = 0; i < rawEntries.length; i++) {
+          const entry = rawEntries[`${i}`];
+          const entryContents = entry.children();
+          const title = this.extractTitle(entryContents[0]);
+          const body = this.extractBody(entryContents.slice(1, -2));
           entries.push({
             title, body
           });
-        });
+        }
         return entries;
       });
   }
