@@ -6,7 +6,6 @@
   "plugins": ["flowtype"],
   "extends": ["airbnb", "plugin:flowtype/recommended"],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "comma-dangle": ["error", "never"]
   }
 }
