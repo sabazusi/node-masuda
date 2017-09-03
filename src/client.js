@@ -3,16 +3,19 @@ import client from 'cheerio-httpcli';
 
 const MASUDA_HOST = 'https://anond.hatelabo.jp';
 
-export class Client {
-  constructor() {
+export default class Client {
+  host: string;
+
+  constructor(host: string) {
+    this.host = host || MASUDA_HOST;
   }
 
   createEntryListUrl(page = 0) {
-    return `${MASUDA_HOST}/page=${page}&mode=top`;
+    return `${this.host}/page=${page}&mode=top`;
   }
 
   createEntryUrl(id) {
-    return `${MASUDA_HOST}/${id}`
+    return `${this.host}/${id}`;
   }
 
   extractTitle(titleBlock) {
@@ -25,9 +28,9 @@ export class Client {
     const url = this.createEntryListUrl(page);
     return client.fetch(url)
       .then(raw => raw.$('.body').children())
-      .then(rawEntries => {
+      .then((rawEntries) => {
         const entries = [];
-        for (var i = 0; i < rawEntries.length; i++) {
+        for (let i = 0; i < rawEntries.length; i++) {
           const entry = rawEntries[`${i}`];
           const entryContents = entry.children();
           const title = this.extractTitle(entryContents[0]);
