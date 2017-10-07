@@ -5,4 +5,4 @@ class Masuda {
   }
 }
 
-exoprt default new Masuda(host = '');
+export default new Masuda(host = '');

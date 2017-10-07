@@ -1,11 +1,16 @@
-var path = require('path');
 module.exports = {
-  entry: {
-    main: "./src/index.js"
+  entry: './example/src/index.js',
+  output: {
+    filename: './example/dist/index.js'
   },
-  devServer: {
-    contentBase: path.join(__dirname, "sample"),
-    port: 8000,
-    filename: 'index.html'
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader'
+        }
+      }
+    ]
   }
-}
+};
